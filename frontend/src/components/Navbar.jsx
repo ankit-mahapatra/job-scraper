@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <nav style={{ background: '#2563eb', color: 'white', padding: '0 24px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', position: 'sticky', top: 0, zIndex: 100 }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '60px' }}>
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '60px' }}>
         
         <h1 style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>💼 JobScraper</h1>
 
