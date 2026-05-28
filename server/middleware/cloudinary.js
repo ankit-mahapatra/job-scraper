@@ -8,7 +8,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+// Image storage
+const imageStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'jobscraper',
@@ -16,7 +17,18 @@ const storage = new CloudinaryStorage({
   },
 });
 
+// Resume storage
+const resumeStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'jobscraper_resumes',
+    allowed_formats: ['pdf'],
+    resource_type: 'raw',
+  },
+});
+
 module.exports = {
   cloudinary,
-  upload: multer({ storage }),
+  upload: multer({ storage: imageStorage }),
+  uploadResume: multer({ storage: resumeStorage }),
 };
