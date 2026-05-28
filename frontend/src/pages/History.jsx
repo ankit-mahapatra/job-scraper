@@ -21,59 +21,46 @@ export default function History() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-2xl shadow border border-blue-100 p-6">
-          <h2 className="text-2xl font-bold text-blue-600 mb-6">Application History</h2>
+    <div style={{ minHeight: '100vh', background: '#f9fafb', padding: '16px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ background: 'white', borderRadius: '20px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', border: '1px solid #dbeafe', padding: '24px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 'bold', color: '#2563eb', marginBottom: '20px' }}>📋 Application History</h2>
 
           {applications.length === 0 ? (
-            <div className="text-center text-gray-400 mt-10">
-              <p className="text-xl">No applications yet!</p>
-              <p className="text-sm mt-2">Go to Dashboard and apply to jobs</p>
+            <div style={{ textAlign: 'center', color: '#9ca3af', marginTop: '40px' }}>
+              <p style={{ fontSize: '40px' }}>📭</p>
+              <p style={{ fontSize: '16px', marginTop: '8px' }}>No applications yet!</p>
+              <p style={{ fontSize: '13px', marginTop: '4px' }}>Go to Dashboard and apply to jobs</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white">
-                  <tr>
-                    <th className="p-4 text-left">Job Title</th>
-                    <th className="p-4 text-left">Company</th>
-                    <th className="p-4 text-left">Platform</th>
-                    <th className="p-4 text-left">Date Applied</th>
-                    <th className="p-4 text-left">Status</th>
-                    <th className="p-4 text-left">Link</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applications.map((app, index) => (
-                    <tr key={index} className="border-t hover:bg-blue-50 transition">
-                      <td className="p-4 font-medium text-gray-800">{app.jobTitle}</td>
-                      <td className="p-4 text-gray-600">{app.company}</td>
-                      <td className="p-4">
-                        <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs font-medium">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {applications.map((app, index) => (
+                <div key={index} style={{ background: '#f8faff', borderRadius: '14px', padding: '16px', border: '1px solid #dbeafe' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                    <div style={{ flex: 1 }}>
+                      <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '15px', margin: 0 }}>{app.jobTitle}</p>
+                      <p style={{ color: '#6b7280', fontSize: '13px', margin: '4px 0' }}>{app.company}</p>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '6px' }}>
+                        <span style={{ background: '#dbeafe', color: '#2563eb', padding: '2px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
                           {app.platform}
                         </span>
-                      </td>
-                      <td className="p-4 text-gray-600">
-                        {new Date(app.dateApplied).toLocaleDateString()}
-                      </td>
-                      <td className="p-4">
-                        <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs font-medium">
-                          {app.status}
+                        <span style={{ background: '#dcfce7', color: '#16a34a', padding: '2px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
+                          {app.status || 'Applied'}
                         </span>
-                      </td>
-                      <td className="p-4">
-                        <button
-                          onClick={() => window.open(app.jobLink, '_blank')}
-                          className="text-blue-600 hover:underline text-xs"
-                        >
-                          View Job
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        <span style={{ color: '#9ca3af', fontSize: '12px', alignSelf: 'center' }}>
+                          📅 {new Date(app.dateApplied).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => window.open(app.jobLink, '_blank')}
+                      style={{ background: '#2563eb', color: 'white', padding: '8px 16px', borderRadius: '10px', fontSize: '12px', fontWeight: '600', border: 'none', cursor: 'pointer', flexShrink: 0 }}
+                    >
+                      View Job
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>

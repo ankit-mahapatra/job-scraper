@@ -21,67 +21,62 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-blue-100">
+    <div style={{ minHeight: '100vh', background: '#f0f4ff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+      <div style={{ background: 'white', borderRadius: '20px', padding: '32px 24px', width: '100%', maxWidth: '420px', boxShadow: '0 4px 24px rgba(37,99,235,0.10)', border: '1px solid #dbeafe', boxSizing: 'border-box' }}>
 
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-blue-600">JobScraper</h1>
-          <p className="text-gray-500 mt-1">Create your account</p>
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#2563eb', margin: 0 }}>💼 JobScraper</h1>
+          <p style={{ color: '#6b7280', marginTop: '6px', fontSize: '14px' }}>Create your account</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-500 p-3 rounded-lg mb-4 text-sm">
+          <div style={{ background: '#fef2f2', color: '#ef4444', padding: '10px 14px', borderRadius: '10px', marginBottom: '16px', fontSize: '13px' }}>
             {error}
           </div>
         )}
 
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Full Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Ankit Mahapatra"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{ width: '100%', border: '1px solid #d1d5db', borderRadius: '10px', padding: '10px 14px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
             />
           </div>
-
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="ankit@gmail.com"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{ width: '100%', border: '1px solid #d1d5db', borderRadius: '10px', padding: '10px 14px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
             />
           </div>
-
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{ width: '100%', border: '1px solid #d1d5db', borderRadius: '10px', padding: '10px 14px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
             />
           </div>
-
           <button
             onClick={handleSignup}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+            style={{ background: '#2563eb', color: 'white', padding: '12px', borderRadius: '10px', fontWeight: '600', border: 'none', cursor: 'pointer', fontSize: '15px', width: '100%' }}
           >
             Create Account
           </button>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p style={{ textAlign: 'center', fontSize: '13px', color: '#6b7280', marginTop: '16px' }}>
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 font-medium hover:underline">
-            Login
-          </Link>
+          <Link to="/login" style={{ color: '#2563eb', fontWeight: '600', textDecoration: 'none' }}>Login</Link>
         </p>
       </div>
     </div>
