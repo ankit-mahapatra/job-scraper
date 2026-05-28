@@ -8,7 +8,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://job-scraper-frontend.vercel.app'],
+  origin: [
+    'http://localhost:5173',
+    'https://job-scraper-frontend.vercel.app',
+    'https://job-scraper-frontend-phi.vercel.app',
+    'https://job-scraper-frontend-git-main-jobscraper.vercel.app'
+  ],
   credentials: true
 }));
 app.use(helmet());
