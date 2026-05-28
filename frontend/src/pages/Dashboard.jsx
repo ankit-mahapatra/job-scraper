@@ -20,7 +20,7 @@ export default function Dashboard() {
     setLoading(true)
     setCurrentPage(1)
     try {
-      const res = await axios.get(`http://localhost:5000/api/scrape?keyword=${keyword}&location=${location}`, {
+      const res = await axios.get(`https://job-scraper-backend-4tbb.onrender.com/api/scrape?keyword=${keyword}&location=${location}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setJobs(res.data)
@@ -34,7 +34,7 @@ export default function Dashboard() {
 
   const handleApply = async (job) => {
     try {
-      await axios.post('http://localhost:5000/api/applications/apply', job, {
+      await axios.post('https://job-scraper-backend-4tbb.onrender.com/api/applications/apply', job, {
         headers: { Authorization: `Bearer ${token}` }
       })
       window.open(job.jobLink, '_blank')

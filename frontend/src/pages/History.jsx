@@ -11,7 +11,7 @@ export default function History() {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/applications', {
+      const res = await axios.get('https://job-scraper-backend-4tbb.onrender.com/api/applications', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setApplications(res.data)

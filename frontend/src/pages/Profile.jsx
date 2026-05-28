@@ -17,7 +17,7 @@ export default function Profile() {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/profile', {
+      const res = await axios.get('https://job-scraper-backend-4tbb.onrender.com/api/profile', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setUser(res.data)
@@ -28,7 +28,7 @@ export default function Profile() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put('http://localhost:5000/api/profile', user, {
+      await axios.put('https://job-scraper-backend-4tbb.onrender.com/api/profile', user, {
         headers: { Authorization: `Bearer ${token}` }
       })
       showMessage('✅ Profile updated successfully!')
@@ -43,7 +43,7 @@ export default function Profile() {
     try {
       const formData = new FormData()
       formData.append('image', imageFile)
-      const res = await axios.post('http://localhost:5000/api/profile/image', formData, {
+      const res = await axios.post('https://job-scraper-backend-4tbb.onrender.com/api/profile/image', formData, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
       })
       setUser(res.data)
@@ -57,7 +57,7 @@ export default function Profile() {
   const handleDeleteImage = async () => {
     if (!window.confirm('Delete profile image?')) return
     try {
-      const res = await axios.delete('http://localhost:5000/api/profile/image', {
+      const res = await axios.delete('https://job-scraper-backend-4tbb.onrender.com/api/profile/image', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setUser(res.data)
@@ -73,7 +73,7 @@ export default function Profile() {
     try {
       const formData = new FormData()
       formData.append('resume', resumeFile)
-      await axios.post('http://localhost:5000/api/profile/resume', formData, {
+      await axios.post('https://job-scraper-backend-4tbb.onrender.com/api/profile/resume', formData, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
       })
       showMessage('✅ Resume uploaded!')
@@ -87,7 +87,7 @@ export default function Profile() {
   const handleDeleteAccount = async () => {
     if (!window.confirm('Are you sure? This will permanently delete your account!')) return
     try {
-      await axios.delete('http://localhost:5000/api/profile/account', {
+      await axios.delete('https://job-scraper-backend-4tbb.onrender.com/api/profile/account', {
         headers: { Authorization: `Bearer ${token}` }
       })
       localStorage.clear()
