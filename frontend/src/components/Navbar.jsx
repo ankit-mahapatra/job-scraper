@@ -16,33 +16,16 @@ export default function Navbar() {
     <nav className="bg-blue-600 text-white px-6 py-4 shadow-md">
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold">💼 JobScraper</h1>
-
-        {/* Hamburger Button - mobile only */}
         <button
-          className="md:hidden text-white text-2xl"
+          className="text-white text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? '✕' : '☰'}
         </button>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-6 items-center">
-          <Link to="/dashboard" className="hover:text-blue-200 font-medium">Dashboard</Link>
-          <Link to="/history" className="hover:text-blue-200 font-medium">History</Link>
-          <Link to="/profile" className="hover:text-blue-200 font-medium">Profile</Link>
-          <span className="text-blue-200">Hi, {user?.name}</span>
-          <button
-            onClick={handleLogout}
-            className="bg-white text-blue-600 px-4 py-1 rounded-lg font-semibold hover:bg-blue-50 transition"
-          >
-            Logout
-          </button>
-        </div>
       </div>
 
-      {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden flex flex-col gap-3 mt-4 pb-2">
+        <div className="flex flex-col gap-3 mt-4 pb-2">
           <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="hover:text-blue-200 font-medium">Dashboard</Link>
           <Link to="/history" onClick={() => setMenuOpen(false)} className="hover:text-blue-200 font-medium">History</Link>
           <Link to="/profile" onClick={() => setMenuOpen(false)} className="hover:text-blue-200 font-medium">Profile</Link>
