@@ -11,9 +11,13 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [filterPlatform, setFilterPlatform] = useState('All')
-  const [bookmarks, setBookmarks] = useState([])
   const token = localStorage.getItem('token')
   const user = JSON.parse(localStorage.getItem('user'))
+  const [bookmarks, setBookmarks] = useState(() => {
+  const saved = localStorage.getItem('bookmarks')
+  return saved ? JSON.parse(saved) : []
+  })
+
 
   const handleScrape = async () => {
     if (!keyword || !location) return alert('Please enter keyword and location!')
@@ -55,13 +59,16 @@ export default function Dashboard() {
   }
 
   const handleBookmark = (job) => {
-    const exists = bookmarks.find(b => b.jobTitle === job.jobTitle)
-    if (exists) {
-      setBookmarks(bookmarks.filter(b => b.jobTitle !== job.jobTitle))
-    } else {
-      setBookmarks([...bookmarks, job])
-    }
+  const exists = bookmarks.find(b => b.jobTitle === job.jobTitle)
+  let updated
+  if (exists) {
+    updated = bookmarks.filter(b => b.jobTitle !== job.jobTitle)
+  } else {
+    updated = [...bookmarks, job]
   }
+  setBookmarks(updated)
+  localStorage.setItem('bookmarks', JSON.stringify(updated)) // ← add this
+}
 
   const isBookmarked = (job) => bookmarks.find(b => b.jobTitle === job.jobTitle)
 
