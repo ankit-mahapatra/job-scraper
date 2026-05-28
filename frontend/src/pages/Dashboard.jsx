@@ -14,10 +14,9 @@ export default function Dashboard() {
   const token = localStorage.getItem('token')
   const user = JSON.parse(localStorage.getItem('user'))
   const [bookmarks, setBookmarks] = useState(() => {
-  const saved = localStorage.getItem('bookmarks')
-  return saved ? JSON.parse(saved) : []
+    const saved = localStorage.getItem('bookmarks')
+    return saved ? JSON.parse(saved) : []
   })
-
 
   const handleScrape = async () => {
     if (!keyword || !location) return alert('Please enter keyword and location!')
@@ -59,20 +58,19 @@ export default function Dashboard() {
   }
 
   const handleBookmark = (job) => {
-  const exists = bookmarks.find(b => b.jobTitle === job.jobTitle)
-  let updated
-  if (exists) {
-    updated = bookmarks.filter(b => b.jobTitle !== job.jobTitle)
-  } else {
-    updated = [...bookmarks, job]
+    const exists = bookmarks.find(b => b.jobTitle === job.jobTitle)
+    let updated
+    if (exists) {
+      updated = bookmarks.filter(b => b.jobTitle !== job.jobTitle)
+    } else {
+      updated = [...bookmarks, job]
+    }
+    setBookmarks(updated)
+    localStorage.setItem('bookmarks', JSON.stringify(updated))
   }
-  setBookmarks(updated)
-  localStorage.setItem('bookmarks', JSON.stringify(updated)) // ← add this
-}
 
   const isBookmarked = (job) => bookmarks.find(b => b.jobTitle === job.jobTitle)
 
-  // Pagination
   const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE)
   const paginatedJobs = filteredJobs.slice(
     (currentPage - 1) * JOBS_PER_PAGE,
@@ -82,53 +80,51 @@ export default function Dashboard() {
   const platforms = ['All', ...new Set(jobs.map(j => j.platform))]
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto">
+    <div style={{ minHeight: '100vh', background: '#f9fafb', padding: '16px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
         {/* Welcome Banner */}
-        <div className="bg-blue-600 rounded-2xl p-6 mb-6 text-white shadow-lg">
-          <h2 className="text-3xl font-bold">Welcome back, {user?.name}! 👋</h2>
-          <p className="text-blue-100 mt-1">Find and apply to your dream jobs today</p>
+        <div style={{ background: '#2563eb', borderRadius: '16px', padding: '20px', marginBottom: '16px', color: 'white' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 'bold', margin: 0 }}>Welcome back, {user?.name}! 👋</h2>
+          <p style={{ color: '#bfdbfe', marginTop: '4px', fontSize: '14px' }}>Find and apply to your dream jobs today</p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-2xl p-4 shadow border border-blue-100 text-center">
-            <p className="text-3xl font-bold text-blue-600">{jobs.length}</p>
-            <p className="text-gray-500 text-sm mt-1">Jobs Found</p>
-          </div>
-          <div className="bg-white rounded-2xl p-4 shadow border border-blue-100 text-center">
-            <p className="text-3xl font-bold text-blue-600">{bookmarks.length}</p>
-            <p className="text-gray-500 text-sm mt-1">Bookmarked</p>
-          </div>
-          <div className="bg-white rounded-2xl p-4 shadow border border-blue-100 text-center">
-            <p className="text-3xl font-bold text-blue-600">{totalPages || 0}</p>
-            <p className="text-gray-500 text-sm mt-1">Total Pages</p>
-          </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '16px' }}>
+          {[
+            { label: 'Jobs Found', value: jobs.length },
+            { label: 'Bookmarked', value: bookmarks.length },
+            { label: 'Total Pages', value: totalPages || 0 },
+          ].map((stat, i) => (
+            <div key={i} style={{ background: 'white', borderRadius: '16px', padding: '12px', textAlign: 'center', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', border: '1px solid #dbeafe' }}>
+              <p style={{ fontSize: '24px', fontWeight: 'bold', color: '#2563eb', margin: 0 }}>{stat.value}</p>
+              <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>{stat.label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Search Box */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-blue-100">
-          <h3 className="text-lg font-bold text-gray-700 mb-4">🔎 Search Jobs</h3>
-          <div className="flex gap-4 flex-wrap">
+        <div style={{ background: 'white', borderRadius: '16px', padding: '20px', marginBottom: '16px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', border: '1px solid #dbeafe' }}>
+          <h3 style={{ fontWeight: 'bold', color: '#374151', marginBottom: '12px' }}>🔎 Search Jobs</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <input
               type="text"
               placeholder="Job keyword (e.g. React Developer)"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="flex-1 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+              style={{ border: '1px solid #e5e7eb', borderRadius: '12px', padding: '12px 16px', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' }}
             />
             <input
               type="text"
               placeholder="Location (e.g. Mumbai)"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="flex-1 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+              style={{ border: '1px solid #e5e7eb', borderRadius: '12px', padding: '12px 16px', fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box' }}
             />
             <button
               onClick={handleScrape}
               disabled={loading}
-              className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-md disabled:opacity-50"
+              style={{ background: '#2563eb', color: 'white', padding: '12px', borderRadius: '12px', fontWeight: '600', border: 'none', cursor: 'pointer', fontSize: '15px', opacity: loading ? 0.6 : 1 }}
             >
               {loading ? '⏳ Scraping...' : '🚀 Scrape Jobs'}
             </button>
@@ -137,138 +133,110 @@ export default function Dashboard() {
 
         {/* Filter Buttons */}
         {jobs.length > 0 && (
-          <div className="flex gap-2 mb-4 flex-wrap">
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
             {platforms.map(p => (
               <button
                 key={p}
                 onClick={() => handleFilter(p)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition
-                  ${filterPlatform === p
-                    ? 'bg-blue-600 text-white shadow'
-                    : 'bg-white text-gray-600 border border-gray-200 hover:border-blue-400'
-                  }`}
+                style={{
+                  padding: '8px 16px', borderRadius: '12px', fontSize: '13px', fontWeight: '600', border: '1px solid #e5e7eb', cursor: 'pointer',
+                  background: filterPlatform === p ? '#2563eb' : 'white',
+                  color: filterPlatform === p ? 'white' : '#4b5563',
+                }}
               >
                 {p}
               </button>
             ))}
-            <span className="ml-auto text-gray-400 text-sm self-center">
-              Showing {filteredJobs.length} jobs
+            <span style={{ marginLeft: 'auto', color: '#9ca3af', fontSize: '13px', alignSelf: 'center' }}>
+              {filteredJobs.length} jobs
             </span>
           </div>
         )}
 
-        {/* Results Table */}
+        {/* Job Cards - Mobile Friendly */}
         {paginatedJobs.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden mb-4">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center">
-              <h3 className="font-bold text-gray-700">📋 Job Results</h3>
-              <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <h3 style={{ fontWeight: 'bold', color: '#374151', margin: 0 }}>📋 Job Results</h3>
+              <span style={{ background: '#dbeafe', color: '#2563eb', padding: '4px 12px', borderRadius: '20px', fontSize: '13px' }}>
                 Page {currentPage} of {totalPages}
               </span>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-gray-50 text-gray-600">
-                  <tr>
-                    <th className="p-4 text-left font-semibold">Job Title</th>
-                    <th className="p-4 text-left font-semibold">Company</th>
-                    <th className="p-4 text-left font-semibold">Location</th>
-                    <th className="p-4 text-left font-semibold">Platform</th>
-                    <th className="p-4 text-left font-semibold">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {paginatedJobs.map((job, index) => (
-                    <tr key={index} className="border-t hover:bg-blue-50 transition">
-                      <td className="p-4 font-medium text-gray-800">{job.jobTitle}</td>
-                      <td className="p-4 text-gray-600">{job.company}</td>
-                      <td className="p-4 text-gray-600">📍 {job.location}</td>
-                      <td className="p-4">
-                        <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-semibold">
-                          {job.platform}
-                        </span>
-                      </td>
-                      <td className="p-4 flex gap-2">
-                        <button
-                          onClick={() => handleApply(job)}
-                          className="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-blue-700 transition shadow"
-                        >
-                          ✅ Apply
-                        </button>
-                        <button
-                          onClick={() => handleBookmark(job)}
-                          className={`px-4 py-2 rounded-xl text-xs font-semibold transition shadow
-                            ${isBookmarked(job)
-                              ? 'bg-yellow-400 text-white hover:bg-yellow-500'
-                              : 'bg-gray-100 text-gray-600 hover:bg-yellow-100'
-                            }`}
-                        >
-                          {isBookmarked(job) ? '🔖 Saved' : '🔖 Save'}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {paginatedJobs.map((job, index) => (
+                <div key={index} style={{ background: 'white', borderRadius: '16px', padding: '16px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', border: '1px solid #dbeafe' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px' }}>
+                    <div style={{ flex: 1 }}>
+                      <p style={{ fontWeight: '600', color: '#1f2937', margin: 0, fontSize: '15px' }}>{job.jobTitle}</p>
+                      <p style={{ color: '#6b7280', fontSize: '13px', margin: '4px 0' }}>{job.company} • 📍 {job.location}</p>
+                      <span style={{ background: '#dbeafe', color: '#2563eb', padding: '2px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
+                        {job.platform}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                      <button
+                        onClick={() => handleApply(job)}
+                        style={{ background: '#2563eb', color: 'white', padding: '8px 14px', borderRadius: '10px', fontSize: '12px', fontWeight: '600', border: 'none', cursor: 'pointer' }}
+                      >
+                        ✅ Apply
+                      </button>
+                      <button
+                        onClick={() => handleBookmark(job)}
+                        style={{
+                          padding: '8px 14px', borderRadius: '10px', fontSize: '12px', fontWeight: '600', border: 'none', cursor: 'pointer',
+                          background: isBookmarked(job) ? '#facc15' : '#f3f4f6',
+                          color: isBookmarked(job) ? 'white' : '#4b5563',
+                        }}
+                      >
+                        {isBookmarked(job) ? '🔖 Saved' : '🔖 Save'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Pagination */}
-            <div className="p-4 border-t border-gray-100 flex justify-center gap-2">
-              <button
-                onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-4 py-2 rounded-xl bg-gray-100 text-gray-600 hover:bg-blue-100 disabled:opacity-40 font-medium text-sm"
-              >
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px', flexWrap: 'wrap' }}>
+              <button onClick={() => setCurrentPage(p => Math.max(p - 1, 1))} disabled={currentPage === 1}
+                style={{ padding: '8px 16px', borderRadius: '10px', background: '#f3f4f6', border: 'none', cursor: 'pointer', opacity: currentPage === 1 ? 0.4 : 1 }}>
                 ← Prev
               </button>
               {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition
-                    ${currentPage === i + 1
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-blue-100'
-                    }`}
-                >
+                <button key={i} onClick={() => setCurrentPage(i + 1)}
+                  style={{ padding: '8px 14px', borderRadius: '10px', border: 'none', cursor: 'pointer', background: currentPage === i + 1 ? '#2563eb' : '#f3f4f6', color: currentPage === i + 1 ? 'white' : '#4b5563', fontWeight: '600' }}>
                   {i + 1}
                 </button>
               ))}
-              <button
-                onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-xl bg-gray-100 text-gray-600 hover:bg-blue-100 disabled:opacity-40 font-medium text-sm"
-              >
+              <button onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}
+                style={{ padding: '8px 16px', borderRadius: '10px', background: '#f3f4f6', border: 'none', cursor: 'pointer', opacity: currentPage === totalPages ? 0.4 : 1 }}>
                 Next →
               </button>
             </div>
           </div>
         )}
 
-        {/* Bookmarks Section */}
+        {/* Bookmarks */}
         {bookmarks.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg border border-yellow-200 overflow-hidden mb-4">
-            <div className="p-4 border-b border-yellow-100">
-              <h3 className="font-bold text-yellow-600">🔖 Bookmarked Jobs ({bookmarks.length})</h3>
+          <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #fde68a', overflow: 'hidden', marginBottom: '16px' }}>
+            <div style={{ padding: '16px', borderBottom: '1px solid #fef3c7' }}>
+              <h3 style={{ fontWeight: 'bold', color: '#d97706', margin: 0 }}>🔖 Bookmarked Jobs ({bookmarks.length})</h3>
             </div>
-            <div className="p-4 space-y-2">
+            <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {bookmarks.map((job, index) => (
-                <div key={index} className="flex justify-between items-center p-3 bg-yellow-50 rounded-xl">
+                <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', background: '#fffbeb', borderRadius: '12px', flexWrap: 'wrap', gap: '8px' }}>
                   <div>
-                    <p className="font-semibold text-gray-800">{job.jobTitle}</p>
-                    <p className="text-gray-500 text-sm">{job.company} • {job.platform}</p>
+                    <p style={{ fontWeight: '600', color: '#1f2937', margin: 0 }}>{job.jobTitle}</p>
+                    <p style={{ color: '#6b7280', fontSize: '13px', margin: '2px 0 0' }}>{job.company} • {job.platform}</p>
                   </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleApply(job)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-semibold hover:bg-blue-700"
-                    >
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button onClick={() => handleApply(job)}
+                      style={{ background: '#2563eb', color: 'white', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '600', border: 'none', cursor: 'pointer' }}>
                       Apply
                     </button>
-                    <button
-                      onClick={() => handleBookmark(job)}
-                      className="bg-red-100 text-red-500 px-3 py-1 rounded-lg text-xs font-semibold hover:bg-red-200"
-                    >
+                    <button onClick={() => handleBookmark(job)}
+                      style={{ background: '#fee2e2', color: '#ef4444', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '600', border: 'none', cursor: 'pointer' }}>
                       Remove
                     </button>
                   </div>
@@ -279,10 +247,10 @@ export default function Dashboard() {
         )}
 
         {jobs.length === 0 && !loading && (
-          <div className="text-center mt-20">
-            <p className="text-6xl mb-4">💼</p>
-            <p className="text-xl text-gray-500 font-medium">Enter a keyword and location to find jobs!</p>
-            <p className="text-gray-400 text-sm mt-2">We'll scrape the latest listings for you</p>
+          <div style={{ textAlign: 'center', marginTop: '60px' }}>
+            <p style={{ fontSize: '60px' }}>💼</p>
+            <p style={{ fontSize: '18px', color: '#6b7280', fontWeight: '500' }}>Enter a keyword and location to find jobs!</p>
+            <p style={{ color: '#9ca3af', fontSize: '14px', marginTop: '8px' }}>We'll scrape the latest listings for you</p>
           </div>
         )}
 
