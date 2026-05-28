@@ -13,26 +13,26 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 shadow-md">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold">💼 JobScraper</h1>
+    <nav style={{ background: '#2563eb', color: 'white', padding: '16px 24px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>💼 JobScraper</h1>
         <button
-          className="text-white text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
+          style={{ background: 'none', border: 'none', color: 'white', fontSize: '28px', cursor: 'pointer' }}
         >
           {menuOpen ? '✕' : '☰'}
         </button>
       </div>
 
       {menuOpen && (
-        <div className="flex flex-col gap-3 mt-4 pb-2">
-          <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="hover:text-blue-200 font-medium">Dashboard</Link>
-          <Link to="/history" onClick={() => setMenuOpen(false)} className="hover:text-blue-200 font-medium">History</Link>
-          <Link to="/profile" onClick={() => setMenuOpen(false)} className="hover:text-blue-200 font-medium">Profile</Link>
-          <span className="text-blue-200">Hi, {user?.name}</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px', paddingBottom: '8px' }}>
+          <Link to="/dashboard" onClick={() => setMenuOpen(false)} style={{ color: 'white', textDecoration: 'none', fontWeight: '500' }}>Dashboard</Link>
+          <Link to="/history" onClick={() => setMenuOpen(false)} style={{ color: 'white', textDecoration: 'none', fontWeight: '500' }}>History</Link>
+          <Link to="/profile" onClick={() => setMenuOpen(false)} style={{ color: 'white', textDecoration: 'none', fontWeight: '500' }}>Profile</Link>
+          <span style={{ color: '#bfdbfe' }}>Hi, {user?.name}</span>
           <button
             onClick={handleLogout}
-            className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition w-full"
+            style={{ background: 'white', color: '#2563eb', padding: '8px 16px', borderRadius: '8px', fontWeight: '600', border: 'none', cursor: 'pointer', width: '100%' }}
           >
             Logout
           </button>
