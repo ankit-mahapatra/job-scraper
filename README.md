@@ -162,3 +162,6 @@ npm run dev
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+> Note: .env file has been removed from latest commit. 
+> node_modules are excluded going forward via .gitignore
